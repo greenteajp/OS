@@ -1,7 +1,14 @@
-Day 1
-ssh student@10.50.38.82 -Y
-xfreerdp /u:student /v:10.50.36.193 /dynamic-resolution +glyph-cache +clipboar
+Login stuff:
+ssh student@10.50.38.82 -Y      (LIN-OPS)
+xfreerdp /u:student /v:10.50.36.193 /dynamic-resolution +glyph-cache +clipboard   (WIN-OPS)
+                    Admin-Station : 10.50.39.203  (student:password)
+                    File-server : 10.19.0.2 (andy.dwyer:BurtMacklinFBI)
+
 https://os.cybbh.io/public/os/latest/002_powershell/pwsh_fg.html
+
+
+
+
 
 QoL:
 Start-Transcript -path .\Day1_notes.txt -append
