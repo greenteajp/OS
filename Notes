@@ -1,3 +1,32 @@
 Day 1
 ssh student@10.50.38.82 -Y
-xfreerdp /u:student /v:10.50.36.193 /dynamic-resolution +glyph-cache +clipboard
+xfreerdp /u:student /v:10.50.36.193 /dynamic-resolution +glyph-cache +clipboar
+https://os.cybbh.io/public/os/latest/002_powershell/pwsh_fg.html
+
+QoL:
+Start-Transcript -path .\Day1_notes.txt -append
+
+
+
+
+Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles'   # Queries current network profiles.
+
+Remoting Security:
+Get-Item WSMan:\localhost\client\TrustedHosts                                      # Query trusted hosts
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "Server01"                    # Adding a single item to TrustedHosts
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "Server01,Server02,127.0.0.1"      # Adding multiple items
+                                                     
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "Server03" -Concatenate       # Appends the Value instead of changing it
+
+#temp session:
+Invoke-Command -ComputerName File-Server {Get-Service}                                      # Creates 1-to-1 Temporary Session
+Invoke-Command -ComputerName File-Server,Domain-Controll,Workstation2 {Get-Service} -asjob  # Running a Temporary Session as a Job 
+                                                                        C:\'location of script on our PC'   ; copies over that script to those computers, 
+                                                                            executes and displays results on our screen
+Receive-Job <job #>                                                                         # Displays the job's Results
+
+
+new-pssession -computername (-port -name -credential)   ### like ssh to another PC
+
+
+
