@@ -26,7 +26,9 @@ Invoke-Command -ComputerName File-Server,Domain-Controll,Workstation2 {Get-Servi
 Receive-Job <job #>                                                                         # Displays the job's Results
 
 
-new-pssession -computername (-port -name -credential)   ### like ssh to another PC
+new-pssession -computername (-port -name -credential)   ### like ssh to another PC      (name, fqdn, netbios, servername)
+
+
 
 
 
