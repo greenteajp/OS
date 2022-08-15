@@ -5,7 +5,7 @@ xfreerdp /u:student /v:10.50.36.193 /dynamic-resolution +glyph-cache +clipboard 
 xfreerdp /u:student /v:10.50.39.203 /dynamic-resolution +glyph-cache +clipboard    (Admin-Station; student:password)
                     File-server (ssh) :10.19.0.2 (andy.dwyer:BurtMacklinFBI)
                     
-                    
+CTFD: http://10.50.22.25:8000/
 
 
 
