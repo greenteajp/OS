@@ -62,6 +62,17 @@ Modifying:
 set-itemproperty        Set-ItemProperty -path <keypath> -name " " -Value " " ; leaves less logs than new-itemproperty (same syntax with new-itemproperty, leaves logs by default   )
 remove-itemproperty
 
+get-psdrive         # to see mounts, includes registry roots/hivekeys
+add-content -value "new-psdrive -name HKU -psprovider Registry -root HKEY_Users" $profile.AllUsersAllhosts   # mounts that key
+^ stuff besides the quotes permanetly adds it
+get-item -path registry::Key_Users\*\<path>     # gets all the users info of that path
+                HKU:\*\path       ^ does the same thing
+
+
+
+
+
+
 
 Using 'reg': Not recommended
 reg /?                    #Displays help for all of the reg.exe commands
