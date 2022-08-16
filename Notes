@@ -35,6 +35,7 @@ new-pssession -computername (-port -name -credential)   ### like ssh to another 
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 DAY2: WINDOWS REGISTRY
 https://os.cybbh.io/public/os/latest/004_windows_registry/reg_fg.html
 regedit
@@ -90,15 +91,28 @@ Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Profile
 Priv Esc1:
 Set-MpPreference -DisableRealtimeMonitoring $TRUE     ### do this first to allow this 
 Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options
-  ###new key 'utilman.exe'; stringvalue 'Debugger', modify valuedata: C:\Windows\System32\cmd.exe 
-                                  ###means of persistence, inheretis users priv, useful for priv esc,  ->.ie lock the screen then open ease of use
+  ###new key 'utilman.exe'; stringvalue 'Debugger; modify, valuedata: C:\Windows\System32\cmd.exe 
+                                  ###means of persistence, inherits users priv, useful for priv esc,  ->.ie lock the screen then open ease of use
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Alternate Data Streams:
+
+CMD:
+ex1: C:\windows\system32>echo social security numbers > reminder.txt:secret.info 
+ex2: 
+  echo "text" > <file>:<streamfile>     ###creates alt data stream
+  notepad <file>:<streamfile>   #views content  
+'dir /R' displays the ADS info of a file typically hidden
 
 
 
-
-
-
-
-
+PWSH:
+ex1: set-Content .\reminder.txt -Value "social security numbers" -Stream secret.info 
+PS Get-Item reminder.txt -Stream *  Get-Item with the -Stream option allows us to see 
+                                                          all streams for *reminder.txt.
+ex2:
+  get-item <file> -Stream * or <ads file>
+  gci <path> | foreach-object {get-item $_.FullName -Stream *} | where {$_.Stream -ne $DATA} } | get-content
+  set-content <path> -Value "txt" -Stream <ads file>
+  
 
 
