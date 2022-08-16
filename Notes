@@ -43,11 +43,44 @@ DAY2:
 
 WINDOWS REGISTRY:
 https://os.cybbh.io/public/os/latest/004_windows_registry/reg_fg.html
+regedit
 
+Creating new registies in PWSH: Recommended
+Set-MpPreference -DisableRealtimeMonitoring $TRUE
 new-item "registry path" -name ".fuk " -force -ErrorAction SilentlyContinue
 new-itemproperty "registry path\.fuk" -name '(Default)' -PropertyType String -Value 'exefile' -Force -ErrorAction SilentlyContinue | out-null
 new-itemproperty "registry path\.fuk" -name 'Content Type' -propertytype String -Value 'application/x-msdownload' -force -ErrorAction Silentlycontinue | out-null
+
 get-item "new registry path"
+
+Querying:
+gci           gets the subkeys, ex 'gci HKLM:\'     'gxi HKLM:\ -recurse' get everything and data/properties
+get-itemproperty    
+get-item        just the key and not any subitems only entries, ex 'get-item HKLM:\'
+
+Modifying:
+set-itemproperty        Set-ItemProperty -path <keypath> -name " " -Value " " ; leaves less logs than new-itemproperty (same syntax with new-itemproperty, leaves logs by default   )
+remove-itemproperty
+
+
+Using 'reg': Not recommended
+reg /?                    #Displays help for all of the reg.exe commands
+reg query /?              #Displays help for the `reg query`
+reg add /?                #Displays help for `reg add`
+reg delete /?             #Displays help for `reg delete`
+
+reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v testme /t REG_SZ /d C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+                                                           /v ;name  /t ; datatype/propertytype /d ; directory that you want the registry to run
+reg delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v testme
+
+
+
+
+
+
+
 
 
 
