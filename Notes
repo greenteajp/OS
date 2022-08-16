@@ -55,7 +55,7 @@ get-itemproperty
 get-item        just the key and not any subitems only entries, ex 'get-item HKLM:\'
 
 Modifying:
-set-itemproperty        Set-ItemProperty -path <keypath> -name " " -Value " " ; leaves less logs than new-itemproperty (same syntax with new-itemproperty, leaves logs by default   )
+set-itemproperty        Set-ISER is the copy of the logged in user’s registemProperty -path <keypath> -name " " -Value " " ; leaves less logs than new-itemproperty (same syntax with new-itemproperty, leaves logs by default   )
 remove-itemproperty
 
 get-psdrive         # to see mounts, includes registry roots/hivekeys
