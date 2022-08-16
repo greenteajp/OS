@@ -38,6 +38,17 @@ Receive-Job <job #>                                                             
 new-pssession -computername (-port -name -credential)   ### like ssh to another PC      (name, fqdn, netbios, servername)
 
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DAY2:
+
+WINDOWS REGISTRY:
+https://os.cybbh.io/public/os/latest/004_windows_registry/reg_fg.html
+
+new-item "registry path" -name ".fuk " -force -ErrorAction SilentlyContinue
+new-itemproperty "registry path\.fuk" -name '(Default)' -PropertyType String -Value 'exefile' -Force -ErrorAction SilentlyContinue | out-null
+new-itemproperty "registry path\.fuk" -name 'Content Type' -propertytype String -Value 'application/x-msdownload' -force -ErrorAction Silentlycontinue | out-null
+get-item "new registry path"
+
 
 
 
