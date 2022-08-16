@@ -59,9 +59,9 @@ remove-itemproperty
 
 get-psdrive         # to see mounts, includes registry roots/hivekeys
 add-content -value "new-psdrive -name HKU -psprovider Registry -root HKEY_Users" $profile.AllUsersAllhosts   # mounts that key
-^ stuff besides the quotes permanetly adds it
+^ stuff outside the quotes permanetly adds it
 get-item -path registry::Key_Users\*\<path>     # gets all the users info of that path
-                HKU:\*\path       ^ does the same thing
+                HKU:\*\path       ^ does the same thing, but without creating the new psdrive
 
 
 
