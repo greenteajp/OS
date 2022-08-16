@@ -1,5 +1,4 @@
-
-LOGIN SUTFF:
+LOGIN/DAILY SUTFF:
 ssh student@10.50.38.82 -Y      (LIN-OPS)
 xfreerdp /u:student /v:10.50.36.193 /dynamic-resolution +glyph-cache +clipboard   (WIN-OPS)
 xfreerdp /u:student /v:10.50.39.203 /dynamic-resolution +glyph-cache +clipboard    (Admin-Station; student:password)
@@ -8,15 +7,12 @@ xfreerdp /u:student /v:10.50.39.203 /dynamic-resolution +glyph-cache +clipboard 
 CTFD: http://10.50.22.25:8000/
 
 
-
-
-
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-https://os.cybbh.io/public/os/latest/002_powershell/pwsh_fg.html
-
-QoL:
-Start-Transcript -path .\Day1_notes.txt -append
+QoL Notes:
+Start-Transcript -path .\Day1_notes.txt -append       ### save every command and output typed in powershell to new file
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DAY1: POWERHSLL BASICS
+https://os.cybbh.io/public/os/latest/002_powershell/pwsh_fg.html
 
 Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles'   # Queries current network profiles.
 
@@ -39,11 +35,10 @@ new-pssession -computername (-port -name -credential)   ### like ssh to another 
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-DAY2:
-
-WINDOWS REGISTRY:
+DAY2: WINDOWS REGISTRY
 https://os.cybbh.io/public/os/latest/004_windows_registry/reg_fg.html
 regedit
+
 
 Creating new registies in PWSH: Recommended
 Set-MpPreference -DisableRealtimeMonitoring $TRUE
