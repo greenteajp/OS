@@ -74,6 +74,11 @@ Sticky Bit: removes the ability to delete files unless the user attempting is th
 
 
 
+MISC COMMANDS:
+--help/man
+man -k/apropos "keyword for a command you dont know"  ###used when the exact name for command is not known but 
+which   ### locates command directory
+whereis ### locate the binary, source, and manual page files for a commands
 
 
 
