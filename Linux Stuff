@@ -5,6 +5,7 @@ xfreerdp /u:student /v:10.50.39.203 /dynamic-resolution +glyph-cache +clipboard 
                     File-server (ssh) :10.19.0.3 (andy.dwyer:BurtMacklinFBI)
                     
 CTFD: http://10.50.22.25:8000/
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DAY 3: LINUX ESSENTIALS
 ctrl alt t = terminal
@@ -24,6 +25,7 @@ vim .bash_aliases
 alias sshops='ssh linops -X terminator&'
 source .bashrc      ->  then command sshops to pen terminator on that hostname from before
 ###
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Situational Awareness:
 hostname, uname -a; who, whoami/id
@@ -35,7 +37,7 @@ w/who, ps-elf ## finds out what is going on
               what is\in the file of interest?
               
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-File System OTHE BASIC LINUX STUFF: https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
+FILE SYSTEM: https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
              https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/index.html
 /   ##root
 /bin (/usr/bin, /usr/local/bin)     ### stores binaries and commands
@@ -56,9 +58,11 @@ File System OTHE BASIC LINUX STUFF: https://refspecs.linuxfoundation.org/FHS_3.0
 /etc/group  
 /etc/passwd
 
-ETC:
 
-Permissions: u:user, g:group, o:anybody else     ;rwx
+
+PERMISSIONS:
+https://tldp.org/LDP/intro-linux/html/sect_03_04.html
+u:user, g:group, o:anybody else    ;rwx
 750 student:student
 
 find / -perm /2000 2>/dev/null -exec ls -la {} \;       ### 2000 for guid, 4000 for suid, 1000 for sticky bit
@@ -67,5 +71,16 @@ SUID: when the file is executed it is by the user who owns it
 EUID: effective uid, real user id so cant edit anything else
 SGID: same as suid but for groups
 Sticky Bit: removes the ability to delete files unless the user attempting is the owner of the file
+
+
+
+
+
+
+
+
+
+
+
 
 
