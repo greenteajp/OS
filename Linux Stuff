@@ -1,0 +1,71 @@
+LOGIN/DAILY SUTFF:
+ssh student@10.50.38.82 -Y      (LIN-OPS)   # linop=
+xfreerdp /u:student /v:10.50.36.193 /dynamic-resolution +glyph-cache +clipboard   (WIN-OPS)
+xfreerdp /u:student /v:10.50.39.203 /dynamic-resolution +glyph-cache +clipboard    (Admin-Station; student:password)
+                    File-server (ssh) :10.19.0.3 (andy.dwyer:BurtMacklinFBI)
+                    
+CTFD: http://10.50.22.25:8000/
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DAY 3: LINUX ESSENTIALS
+ctrl alt t = terminal
+vim .ssh/config
+
+###Quick box login
+Host linops
+    HostName 10.50.38.82
+    user student
+    port 22
+chmod 600 .ssh/config
+ssh-keygen (enter, enter, enter)
+ssh-copy-id linops
+ssh linops -> gets you to the linops station w/out authentication
+###
+vim .bash_aliases
+alias sshops='ssh linops -X terminator&'
+source .bashrc      ->  then command sshops to pen terminator on that hostname from before
+###
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Situational Awareness:
+hostname, uname -a; who, whoami/id
+
+sudo -l  ; shows what commnads you can run
+
+w/who, ps-elf ## finds out what is going on
+              why/how is things happening?
+              what is\in the file of interest?
+              
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+File System OTHE BASIC LINUX STUFF: https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
+             https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/index.html
+/   ##root
+/bin (/usr/bin, /usr/local/bin)     ### stores binaries and commands
+/sbin (/usr/sbin)     ### stores system binaries
+/home     ### default directory for all users
+/usr      ### universal system resources; documentation, example files; catch for any files designed to be used on system
+/etc      ### everything configurable; system level config files; ssh, bashrc, gnome, cron, systemd
+/var      ### thing that are likely to change, like logs, mail
+/boot     ### what happens at boot process, contains .img/build files, grub
+/dev      ### special or device files; hardware, stderr/in/out. 
+/lib      ### shared library images needed by binaries in /bin and /sbin, like .dlls
+/media    ### subdirectories used for mount points for removable media
+/mnt      ### permanetly attached storage/filesys
+/opt      ### add-on application software packages
+/run      ### run time nad variable data, mounted at boot, holds info to that session of boot
+/tmp      ### temporary files/persistence
+/proc     ### method for handling process, sys info, memory info
+/etc/group  
+/etc/passwd
+
+ETC:
+
+Permissions: u:user, g:group, o:anybody else     ;rwx
+750 student:student
+
+find / -perm /2000 2>/dev/null -exec ls -la {} \;       ### 2000 for guid, 4000 for suid, 1000 for sticky bit
+
+SUID: when the file is executed it is by the user who owns it
+EUID: effective uid, real user id so cant edit anything else
+SGID: same as suid but for groups
+Sticky Bit: removes the ability to delete files unless the user attempting is the owner of the file
+
+
