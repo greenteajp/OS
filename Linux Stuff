@@ -36,6 +36,20 @@ w/who, ps-elf ## finds out what is going on
               why/how is things happening?
               what is\in the file of interest?
               
+Host Enumeration:
+ifconfig / ip addr    ### gets network interfaces and IP addresses and MACS
+netstat (-ntlp) / ss (-ntlp)   ### shows network connections of listening ports
+          name, tcp ports, listening, ports/process
+sudo -l ss -ntlp  ### to see process names, id and file descriptors
+              
+ip route / route    ### shows where packets will be routed for specific IP dst.
+arp / ip neigh    ### displays MAC addresses of devices observed/talked on the network
+          Reachable= talked to recently
+          Stale= talked to but not known how long ago
+
+sudo iptables -L / nft list tables   ### to view firewall rules
+              
+        
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 FILE SYSTEM: https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
              https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/index.html
@@ -57,7 +71,7 @@ FILE SYSTEM: https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
 /proc     ### method for handling process, sys info, memory info
 /etc/group  
 /etc/passwd
-
+/etc/shells
 
 
 PERMISSIONS:
@@ -73,7 +87,6 @@ SGID: same as suid but for groups
 Sticky Bit: removes the ability to delete files unless the user attempting is the owner of the file
 
 
-
 MISC COMMANDS:
 --help/man
 man -k/apropos "keyword for a command you dont know"  ###used when the exact name for command is not known but 
@@ -85,7 +98,541 @@ whereis ### locate the binary, source, and manual page files for a commands
 
 
 
+    1  exit
+    2  whoami
+    3  clear
+    4  unae -a
+    5  uname -a
+    6  clear
+    7  ls --help
+    8  man --help
+    9  llman grep -l
+   10  man grep -l ay
+   11  man grep -l
+   12  clear
+   13  which cat
+   14  man -k cat
+   15  apropos ca
+   16  apropos cat
+   17  whereis cat
+   18  man -k digest
+   19  md5sum "OnewayBestWay"
+   20  md5sum "OneWayBestWay"
+   21  sha1sum OneWayBestWay
+   22  man md5sum
+   23  man -k digest
+   24  md5sum --help
+   25  md5sum -t "OneWayBestWay"
+   26  md5sum -t OneWayBestWay
+   27  echo "OneWayBestWay" | md5sum
+   28  echo "OneWayBestWay" | sha1sum
+   29  clear
+   30  ls
+   31  ls -l
+   32  clear
+   33  cd Encrypted
+   34  ls
+   35  ls -l
+   36  file Encrypted
+   37  cat Encrypted
+   38  openssl --help
+   39  openssl aes-526-cbc -a -salt -pbkdf2 -in Encrypted -out Encrypted1.txt
+   40  openssl aes-25-cbc -a -salt -pbkdf2 -in Encrypted -out Encrypted1.txt
+   41  openssl aes-256-cbc -a -salt -pbkdf2 -in Encrypted -out Encrypted1.txt
+   42  openssl enc -d -aes-256-cbc -in Encrypted -out Encrypted 2.txt
+   43  openssl enc -d aes-256-cbc -in Encrypted -out Encrypted 2.txt
+   44  clear
+   45  cat Encrypted
+   46  type Enc
+   47  file Encrypted
+   48  ls
+   49  unzip Encrypted -d Encrypt.txt
+   50  ls
+   51  cat Encrypt
+   52  cat Encrypt.txt
+   53  cd Encrypt.txt/
+   54  ls
+   55  cat cipher
+   56  cat symmetric
+   57  cat Encrypted
+   58  cd ..
+   59  cat Encrypted
+   60  file Encrypt
+   61  file Encrypted
+   62  cat Encrypted
+   63  ls
+   64  cd Encrypt.txt/
+   65  ls
+   66  cat cipher
+   67  cat symmetric
+   68  ls -l
+   69  openssl aes128 -d -in cipher
+   70  cd ..
+   71  ls
+   72  cd ..
+   73  ls
+   74  cd $HOME
+   75  ls
+   76  ls | sort
+   77  cat Battlefield/
+   78  cd Battlefield/
+   79  ls
+   80  clear
+   81  ls -l
+   82  cd ..
+   83  ls
+   84  ls -lisa
+   85  ls -lisa -f
+   86  ls -lisa
+   87  find -type f
+   88  prune
+   89  clear
+   90  ls
+   91  ls -l
+   92  cat numbers
+   93  cat numbers | wc -l
+   94  clear
+   95  ls
+   96  ls -l
+   97  cat /etc/passwd
+   98  cat /etc/passwd | cut -d: -f6
+   99  cat /etc/passwd | cut -d: -f5
+  100  cat /etc/passwd | cut -d: -f4
+  101  cat /etc/passwd | cut -d: -f5
+  102  cat /etc/passwd | cut -d: -f4
+  103  cat /etc/passwd | cut -d: -f5
+  104  clear
+  105  cat /etc/groups
+  106  cat /etc/group
+  107  cat /etc/group | grep -p Lodge
+  108  cat /etc/group
+  109  cat /etc/group | grep lodgre
+  110  cat /etc/group | grep lodge
+  111  cat /etc/group | sort
+  112  cat /etc/group | grep lodge
+  113  cat /etc/passwd | cut -d: -f7
+  114  /etc/shells
+  115  sudo cat /etc/shells
+  116  cat /etc/passwd | cut -d: -f7
+  117  cat /etc/passwd | cut -d: -f7 | uniq
+  118  cat /etc/passwd | grep "/bin/sh"
+  119  sudo cat /etc/shadow
+  120  sudo cat /etc/shadow | root
+  121  sudo cat /etc/shadow | grep root
+  122  sudo cat /etc/shadow | grep student
+  123  sudo cat /etc/shadow
+  124  sudo cat /etc/shadow  | cut -d$ -f2
+  125  sudo cat /etc/shadow  | cut -d$ -f1
+  126  sudo cat /etc/shadow  | cut -d$ -f14
+  127  sudo cat /etc/shadow  | cut -d: -f1
+  128  sudo cat /etc/shadow  | cut -d: -f2
+  129  sudo cat /etc/shadow  | cut -d: -f3
+  130  sudo cat /etc/shadow  | cut -d: -f4
+  131  sudo cat /etc/shadow  | cut -d: -f5
+  132  sudo cat /etc/shadow  | cut -d: -f6
+  133  sudo cat /etc/shadow  | cut -d: -f2
+  134  sudo cat /etc/shadow  | cut -d: -f2 | head
+  135  sudo cat /etc/shadow  | cut -d: -f3 | head
+  136  sudo cat /etc/shadow  | cut -d: -f4 | head
+  137  sudo cat /etc/shadow  | cut -d: -f2 | head
+  138  sudo cat /etc/shadow | head
+  139  sudo cat /etc/shadow | head -10
+  140  echo NNZZMQkjGuu0S/gs0iQw8PbmRStlbJiJVT0fQc9JJa5SJztXAC9ehC.ym30ynWdwwiv8o/UABUHJdG.D5buGA. | wc
+  141  echo "NNZZMQkjGuu0S/gs0iQw8PbmRStlbJiJVT0fQc9JJa5SJztXAC9ehC.ym30ynWdwwiv8o/UABUHJdG.D5buGA." | wc
+  142  echo "NNZZMQkjGuu0S/gs0iQw8PbmRStlbJiJVT0fQc9JJa5SJztXAC9ehC.ym30ynWdwwiv8o/UABUHJdG.D5buGA." | length
+  143  clear
+  144  echo "NNZZMQkjGuu0S/gs0iQw8PbmRStlbJiJVT0fQc9JJa5SJztXAC9ehC.ym30ynWdwwiv8o/UABUHJdG.D5buGA."
+  145  clear
+  146  echo "NNZZMQkjGuu0S/gs0iQw8PbmRStlbJiJVT0fQc9JJa5SJztXAC9ehC.ym30ynWdwwiv8o/UABUHJdG.D5buGA." | sum
+  147  echo "NNZZMQkjGuu0S/gs0iQw8PbmRStlbJiJVT0fQc9JJa5SJztXAC9ehC.ym30ynWdwwiv8o/UABUHJdG.D5buGA." | wc -x
+  148  echo "NNZZMQkjGuu0S/gs0iQw8PbmRStlbJiJVT0fQc9JJa5SJztXAC9ehC.ym30ynWdwwiv8o/UABUHJdG.D5buGA." | wc -m
+  149  echo "NNZZMQkjGuu0S/gs0iQw8PbmRStlbJiJVT0fQc9JJa5SJztXAC9ehC.ym30ynWdwwiv8o/UABUHJdG.D5buGA." | wc -c
+  150  sudo cat /etc/shadow | head -t
+  151  sudo cat /etc/shadow
+  152  echo PoFwHOkiHYdAo/LQ/gPl6xjkIZ8f/yPxyWXaHPLFXOtnMuNykRsIspIg0MeHFx/gXwTcACeBFd3GotzAgACO50
+  153  echo PoFwHOkiHYdAo/LQ/gPl6xjkIZ8f/yPxyWXaHPLFXOtnMuNykRsIspIg0MeHFx/gXwTcACeBFd3GotzAgACO50 | wc -m
+  154  cd ..
+  155  ls
+  156  find . -name "bibliotheca"
+  157  sudo find / -name "bibliotheca"
+  158  sudo find / -name "Bibliotheca"
+  159  ls -lisa /media/Bibliotheca
+  160  ls -lisa /Bibliotheca
+  161  ls -lisa /media
+  162  cat /etc/passwd | grep chapter
+  163  cat /etc/group | grep chapter
+  164  cat /etc/passwd | grep chapter
+  165  cat /etc/passwd | grep sejanus
+  166  stat -f "%OLp" /media/Bibliotheca/
+  167  stat -f "%0Lp" /media/Bibliotheca/
+  168  stat  /media/Bibliotheca/
+  169  stat -c  /media/Bibliotheca/
+  170  stat /media/Bibliotheca/
+  171  cd Bianka_Bardt/
+  172  cd ..
+  173  ls
+  174  cd $HOME
+  175  ls -l /media/Bibliotheca/
+  176  ls -l /media
+  177  cd /media/Bibliotheca/
+  178  ls
+  179  ls -l
+  180  cat /etc/group | grep lodge
+  181  cat /etc/group | grep chapter
+  182  ls -lisa
+  183  find -type f
+  184  clear
+  185  ls
+  186  cd Bibliotheca__duo
+  187  cd Bibliotheca_duo
+  188  ls
+  189  ls -l
+  190  cat /etc/group | grep quixos
+  191  cd ..
+  192  ls
+  193  cd Bibliotheca_quattuor/
+  194  ls
+  195  ls -l
+  196  cat /etc/group | grep gaurdsmen
+  197  cat /etc/group | grep guardsmen
+  198  ls -l
+  199  cd ..
+  200  ls
+  201  cd Bibliotheca_unus/
+  202  ls
+  203  ls -l
+  204  cd ..
+  205  ls
+  206  cd Bibliotheca_tribus/
+  207  ls -l
+  208  cd ..
+  209  ls
+  210  ls -l
+  211  cd Bibliotheca_duo/
+  212  ls -l
+  213  cd ..
+  214  ls
+  215  ls -lisa
+  216  cd Bibliotheca_quattuor/
+  217  ls -l
+  218  cd ..
+  219  ls
+  220  cd Bibliotheca_unus/
+  221  ls -l
+  222  cat /etc/group | grep gaurdsmen | grep mephiston
+  223  cat /etc/group | grep gaurdsmen
+  224  cat /etc/group | grep gaurdsmen | grep mephiston
+  225  cat /etc/group | grep gaurdsmen
+  226  cat /etc/group
+  227  cat /etc/group | grep gaurdsmen
+  228  cat /etc/group | grep gaurdmens
+  229*
+  230  cat /etc/group | grep guardsmen | grep meph
+  231  cat /etc/group | grep guardsmen | grep mephiston
+  232  cat /etc/group | grep chapter
+  233  cat /etc/group | grep lodge
+  234  cat /etc/passwd | grep lodge
+  235  cat /etc/passwd | grep chapter
+  236  clear
+  237  cat /etc/group | grep gaurdsmen
+  238  cat /etc/group | grep gaurd
+  239  clear
+  240  ls
+  241  ls -l
+  242  cd ..
+  243  ls
+  244  cd ..
+  245  cd Bibliotheca/
+  246  ls
+  247  cd Bibliotheca_quattuor/
+  248  ls -l
+  249  cd ..
+  250  cd Bibliotheca_quattuor/
+  251  ls
+  252  ls -l
+  253  cat Tactica_Imperium
+  254  sudo cat Tactica_Imperium
+  255  sudo $/Tactica_Imperium
+  256  sudo &/Tactica_Imperium
+  257  clear
+  258  cclear
+  259  ls
+  260  cd ..
+  261  ls
+  262  ls -l
+  263  cd Bibliotheca_quattuor/
+  264  ls -l
+  265  cd ..
+  266  ls
+  267  cd Bibliotheca_d
+  268  cd Bibliotheca_duo/
+  269  ls -l
+  270  cd ..
+  271  ls
+  272  cd Bibliotheca_quattuor/
+  273  ls -l
+  274  cd ..
+  275  ls
+  276  cd Bibliotheca_tribus/
+  277  ls -l
+  278  cd ..
+  279  ls l
+  280  ls
+  281  cd Bibliotheca_duo/
+  282  ls -l
+  283  ls
+  284  cd ..
+  285  ls
+  286  ls -lisa
+  287  cat ..
+  288  ls -a
+  289  ls
+  290  cd Bibliotheca_duo/
+  291  ls -a
+  292  ls -lisa
+  293  cat .Secrets_of_the_Immaterium
+  294  ls
+  295  ls -a
+  296  ls -lisa
+  297  cd ..
+  298  ls
+  299  cd Bibliotheca_q
+  300  cd Bibliotheca_quattuor/
+  301  ls -lisa
+  302  cat .Secrets_of_the_Immeterium
+  303  cd ..
+  304  cd Bibliotheca_duo/
+  305  ls
+  306  ls -lisa
+  307  cd .warp5
+  308  ls
+  309  cd ..
+  310  cd .warp1
+  311  ls
+  312  ls -a
+  313  cd .warp1
+  314  ls -a
+  315  cd .warp1
+  316  cat warp1
+  317  ls -a
+  318  ls -lisa
+  319  cd warp1
+  320  ls
+  321  cd ..
+  322  cd warp2
+  323  cd ..
+  324  cd warp3
+  325  ls
+  326  ls -lisa
+  327  cd .warp1
+  328  ls -lisa
+  329  cd .warp1
+  330  ls -;lisa
+  331  ls -lisa
+  332  cd /media/Bibliotheca/
+  333  ls
+  334  cd Bibliotheca_
+  335  ls
+  336  cd Bibliotheca_
+  337  cd Bibliotheca_duo/
+  338  ls
+  339  ls -a
+  340  clear
+  341  ls -a
+  342  ls -lisa
+  343  cd ..
+  344  clear
+  345  ls
+  346  cd Bibliotheca_tribus/
+  347  ls -lisa
+  348  cd ..
+  349  ls
+  350  cd Bibliotheca_unus/
+  351  ls
+  352  ls -lisa
+  353  cd ..
+  354  ls
+  355  cd Bibliotheca_duo/
+  356  ls- lisa
+  357  clear
+  358  ls -lisa
+  359  cd .warp2
+  360  find . -file f
+  361  find . -type f
+  362  cd .warp5/warp5/.warp3/warp2
+  363  ls
+  364  ls -a
+  365  cat .secrets
+  366  clear
+  367  cd /
+  368  clear
+  369  ls /etc/
+  370  ls /etc/ | grep *.d
+  371  ls /etc/ | grep -name
+  372  ls /etc/ | grep -name ".d"
+  373  ls /etc/ | grep -name "*.d"
+  374  ls /etc/ | grep  "*.d"
+  375  ls /etc/ | grep  -f
+  376  ls /etc/ | grep  -f *.d
+  377  ls /etc/ | grep  -f "*.d"
+  378  find . -type f \(-name "*.d"\)
+  379  find . -type f\(-name "*.d"\)
+  380  find . -type f -name "*.d"
+  381  find . -type f -name "*.d" | wc -m
+  382* find . -type f -name "*.d" | wc -
+  383*
+  384  find /etc/ -type f -name "*.d" | wc -m
+  385  find /etc/ -type f -name "*.d"
+  386  ls /etc/
+  387  ls -lisa /etc/
+  388  clear
+  389  cd $HOMe
+  390  ls
+  391  cat numbers | grep -E ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$
+  392  cat numbers | grep -e ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$
+  393  cat numbers | egrep ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$
+  394  cat numbers | egrep "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$"
+  395  cat numbers | egrep "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$" | wc -m
+  396  cat numbers | egrep "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$" | wc -l
+  397  cat numbers | cut -d. -f1
+  398  cat numbers | ip-addre
+  399  cat numbers | ip-addr
+  400  clear
+  401  cat numbers | egrep '\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?(\.|$)){4}\b' | wc -l
+  402  cat numbers
+  403  cat numbers | grep -E '\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?(\.|$)){4}\b'
+  404  cat numbers | grep -E '\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b' | wc -l
+  405  cat numbers grep -E "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$" | wc -l
+  406  cat numbers egrep "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$" | wc -l
+  407  cat numbers | egrep ^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$ | wc -l
+  408  cat numbers | egrep '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$' | wc -l
+  409  cat numbers | egrep '^([[:xdigit:]]{2}[:.-]?){5}[[:xdigit:]]{2}$' | wc -l
+  410  cat numbers | egrep '^([[0-9A-Fa-f]]{2}[:.-]?){5}[[0-9A-Fa-f]]{2}$' | wc -l
+  411  cat numbers | egrep '^([[0-9A-Fa-f]]{2}[:.-]?){5}[[0-9A-Fa-f]]{2}$'
+  412  cat numbers | egrep '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$' | wc -l
+  413  cat numbers | egrep '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$'
+  414  cat numbers | egrep '^([0-9A-Fa-f]{1,2}[:-]){5}([0-9A-Fa-f]{1,2})$'
+  415  cat numbers | egrep '^([0-9A-Fa-f]{1,2}[:-]){5}([0-9A-Fa-f]{1,2})$' | wc -l
+  416  md5sum $(awk {print $420, $1337} )
+  417  md5sum $(awk '{print $420, $1337}' )
+  418  md5sum $(awk '{print $420, $1337}' ) numbers
+  419  numbers | wc-l 420
+  420  clear
+  421  cat numbers  | wc -l 420
+  422  man wc
+  423  wc --help
+  424  cat numbers | egrep '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$' | wc -l
+  425  cat numbers | egrep '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$'
+  426  cat numbers | egrep '^([[:xdigit:]]{2}[:.-]?){5}[[:xdigit:]]{2}$' | wc -l
+  427  cat numbers | egrep '^([[:xdigit:]]{2}[:.-]?){5}[[:xdigit:]]{2}$'
+  428  clear
+  429  cat numbers | sed n -420
+  430  cat numbers | sed n '420p'
+  431  cat numbers | sed -n '420p'
+  432  cat numbers | sed -n '420p;1337p'
+  433  cat numbers | egrep '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$'
+  434  md5sum $(cat numbers | egrep '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$' )
+  435  md5sum $(cat numbers | egrep '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$')
+  436  md5sum $(cat numbers | sed -n '420p;1337p')
+  437  cat numbers | sed -n '420p;1337p'
+  438  ls
+  439  cd Battlefield/
+  440  ls
+  441  ls -lisa
+  442  cat minefield_map
+  443  cat titan_commands
+  444  ./titan_commands
+  445  cd /etc/
+  446  find . -regex '\.[*.d]'
+  447  find . -regex '.[*.d]'
+  448  find  -regex '.[*.d]'
+  449  find . -regex '.[*.d]'
+  450  clear
+  451  grep -E '\.d '
+  452  ls -lisa |grep -E '\.d '
+  453  ls -lisa | grep -E '\.d '
+  454  ls | grep -E '\.d '
+  455  ls
+  456  ls | grep -e '\.d '
+  457  ls | grep  '\.d '
+  458  ls | grep -P  '\.d '
+  459  ls -lisa | grep -P "(^\w+\.pdf)(?=\s)"
+  460  ls -lisa | grep -E "(^\w+\.pdf)(?=\s)"
+  461  ls -lisa | grep -E "(^\w+\.d)(?=\s)"
+  462  ls -lisa | grep -E (^\w+\.d)
+  463  ls -lisa | grep -E '(^\w+\.d)'
+  464  clear
+  465  ls -lisa
+  466  clear
+  467  md5sum $(awk 'NR >= 420 && NR <= 1337 {print})
 
+  468  awk 'NR >= 420 && NR <= 1337 {print}
 
-
+  469  awk 'NR >= 420 && NR <= 1337 {print} '
+  470  cd $HOME
+  471  ls
+  472  awk 'NR >= 420 && NR <= 1337 {print} '  numbers
+  473  awk 'NR >= 420 && NR <= 1337 {print} '  numbers 1337-420
+  474  1337-420
+  475  awk 'NR >= 420 && NR <= 1337 {print} '  numbers | md5sum
+  476  awk 'NR >= 420 && NR <= 1337 {prin 0} '  numbers | md5sum
+  477  awk 'NR >= 420 && NR <= 1337 {print 0} '  numbers | md5sum
+  478  awk 'NR >= 420 && NR <= 1337 {print 0} '  numbers | sha512sum
+  479  awk 'NR >= 420 && NR <= 1337 {print } '  numbers | sha512sum
+  480  awk 'NR >= 420 && NR <= 1337 {print} '  numbers | sha512sum
+  481  cd $HOME
+  482  ls
+  483  clear
+  484  ls
+  485  cd Battlefield/
+  486  ls
+  487  ls -a
+  488  clear
+  489  l
+  490  cat Mine
+  491  cat minefield_map
+  492  cat titan_commands
+  493  type titan
+  494  type titan_commands
+  495  clear
+  496  cat minefield_map
+  497  cat titan_commands
+  498  clear
+  499  cat minefield_map
+  500  cat titan_commands
+  501  chmod 755 titan_commands
+  502  ./titan_commands
+  503  clear
+  504  ./titan_commands
+  505  cat titan_commands
+  506  cat minefield_map
+  507  cat titan_commands
+  508  ./titan_commands
+  509  cat titan_commands
+  510  cat minefield_map
+  511  ./titan_commands
+  512  cat minefield_map
+  513  ./titan_commands
+  514  cat minefield_map
+  515  ./titan_commands
+  516  cat minefield_map
+  517  cat titan_commands
+  518  ./titan_commands
+  519  $PATH
+  520  $PATH/binary
+  521  $HOME/paths
+  522  sudo $HOME/paths
+  523  cd $HOM
+  524  cd $HOME
+  525  ls
+  526  ls -lisa
+  527  cat paths
+  528  clear
+  529  cat paths
+  530  cat paths | sort
+  531  clear
+  532  /bin
+  533  ls /bin
+  534  ls -lisa /bin
+  535  history
 
