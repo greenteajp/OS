@@ -169,7 +169,7 @@ Session 1 is for the first interactive user (interactive)
 User subsystem Session 1:
 
     Spawn a Session 1 ( or higher) csrss.exe ( each user has one)
-    Spawn Winlogon.exe which by default prompts for credentials with logonui.exe      ### service accounts do not have this
+    Spawn Winlogon.exe which by default prompts for credentials with logonui.exe      ### service accounts do not have this SAS
          Spawn userinit.exe which creates an account token and creates a custom environment     ### userinit, lauches explorer and kills userinit, has pid of userinit
              Spawn explorer.exe as the customized graphical environment.
 
@@ -183,7 +183,7 @@ bcdedit | findstr /i winload or winresume     ### shows if loaded from cold or h
 msinfo32      ### shows sys summary, devies, boot devices, BIOS mode (UEFI/Legacy), secure boot state
     Boot Device	\Device\HarddiskVolume1
 bcdedit /set description "Win 10"   ### changes it
-bcdedit /set safeboot minimal/Network     #the former allows safe mode; "Netowkr" allows a basic command shell and network resources like a NIC
+bcdedit /set safeboot minimal/Network     #the former allows safe mode; "Network" allows a basic command shell and network resources like a NIC
 bcdedit /set safebootalternateshell   ### allows safe mode to load bash; if no safeboot default is minimal
 bcdedit /deletevalue safeboot/sasfebootalternateshell
   -OR-
