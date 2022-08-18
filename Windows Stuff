@@ -173,6 +173,37 @@ User subsystem Session 1:
          Spawn userinit.exe which creates an account token and creates a custom environment     ### userinit, lauches explorer and kills userinit, has pid of userinit
              Spawn explorer.exe as the customized graphical environment.
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+BCDEDIT:
+Native CLI tool to view and manipulate boot configs
+  Windows Boot Loader: identifier {current}, the running boot
+  
+bcdedit /?
+bcdedit | findstr /i winload or winresume     ### shows if loaded from cold or hibernation; BIOS or UEFI
+msinfo32      ### shows sys summary, devies, boot devices, BIOS mode (UEFI/Legacy), secure boot state
+    Boot Device	\Device\HarddiskVolume1
+bcdedit /set description "Win 10"   ### changes it
+bcdedit /set safeboot minimal/Network     #the former allows safe mode; "Netowkr" allows a basic command shell and network resources like a NIC
+bcdedit /set safebootalternateshell   ### allows safe mode to load bash; if no safeboot default is minimal
+bcdedit /deletevalue safeboot/sasfebootalternateshell
+  -OR-
+    msconfig, Boot -> safeboot... (if gui is accessable) 
+      uncheck services, custom ones are noted
+
+
+bcdedit /displayorder {name} /addfirst
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
