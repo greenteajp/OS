@@ -98,6 +98,33 @@ whereis ### locate the binary, source, and manual page files for a commands
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CTFD:
     1  exit
     2  whoami
     3  clear
@@ -636,3 +663,6 @@ whereis ### locate the binary, source, and manual page files for a commands
   534  ls -lisa /bin
   535  history
 
+
+
+grep -woFf Inquisition_Targets guardsmne.txt        - woFf compares the first file to the second
