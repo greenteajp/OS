@@ -3,7 +3,8 @@ ssh student@10.50.38.82 -Y      (LIN-OPS)   # linop=
 xfreerdp /u:student /v:10.50.36.193 /dynamic-resolution +glyph-cache +clipboard   (WIN-OPS)
 xfreerdp /u:student /v:10.50.39.203 /dynamic-resolution +glyph-cache +clipboard    (Admin-Station; student:password)
                     File-server (ssh) :10.19.0.3 (andy.dwyer:BurtMacklinFBI)
-                    
+cd ..
+
 CTFD: http://10.50.22.25:8000/
 
 
@@ -40,9 +41,10 @@ DAY2: WINDOWS REGISTRY
 https://os.cybbh.io/public/os/latest/004_windows_registry/reg_fg.html
 regedit
 
-
+cd:\
 Creating new registies in PWSH: Recommended
-Set-MpPreference -DisableRealtimeMonitoring $TRUE
+Set-MpPreference -DisableRealtimeMonitoring $TRUE$profile
+
 new-item "registry path" -name ".fuk " -force -ErrorAction SilentlyContinue
 new-itemproperty "registry path\.fuk" -name '(Default)' -PropertyType String -Value 'exefile' -Force -ErrorAction SilentlyContinue | out-null
 new-itemproperty "registry path\.fuk" -name 'Content Type' -propertytype String -Value 'application/x-msdownload' -force -ErrorAction Silentlycontinue | out-null
@@ -63,8 +65,6 @@ add-content -value "new-psdrive -name HKU -psprovider Registry -root HKEY_Users"
 ^ stuff outside the quotes permanetly adds it                                     &$profile.allusersallhosts
 get-item -path registry::Key_Users\*\<path>     # gets all the users info of that path
                 HKU:\*\path       ^ does the same thing, but without creating the new psdrive
-
-
 
 
 
@@ -192,7 +192,7 @@ bcdedit /deletevalue safeboot/sasfebootalternateshell
 
 
 bcdedit /displayorder {name} /addfirst
-
+shutdown /a
 
 
 
