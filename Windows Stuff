@@ -105,11 +105,6 @@ ex2:
 'dir /R' displays the ADS info of a file typically hidden
 
 
-
-
-
-
-
 PWSH: 
 ex1: set-Content .\reminder.txt -Value "social security numbers" -Stream secret.info 
 PS Get-Item reminder.txt -Stream *  Get-Item with the -Stream option allows us to see 
@@ -153,29 +148,30 @@ UEFI winload.efi, winresume.efi( hibernation, needs hiberfil.sys to exsist)
  
 After boot managers load winload/winresume, Ntoskrnl starts several kernal/OS processes:
   device drivers, pagefile.sys, directory hives, hal.dll, process manager for system idle process. And smss.exe and csrss.exe for logon etc.
-  
-  
-  
-  
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Win 10 LOGON Process:
 https://git.cybbh.space/os/public/raw/master/images/winboot-06.jpg
 
-Session 0 is for security and high privilege processes such as services
+SYSTEM (pid 4 ), begins this, Idle ( pid 0) is the kernel
+PId 0-1000 is systemlevel; for users only smss, csrss and winlogon is only under 1000
+Session 0 is for security and high privilege processes such as services (non-interactive)
 User subsystem Session 0:
-    -smss.exe installs the Win32 subsystem kernel and user mode components (win32k.sys - kernel; winsrv.dll - user; and csrss.exe - user.)
-        -crsrss.exe - the Client/Server Runtime Subsystem supports process / thread creation and management.
-        -wininit.exe marks itself as critical, initializes the Windows temp directory, loads the rest of the registry, and starts user mode scheduling. It also installs programs that require a reboot to finish the install process. It also starts:
-            lsm.exe - the Local Session Manager (LSM) handles all sessions of a system (both remote desktop sessions and local system sessions.)
-            lsass.exe - the Local Security Authority Subsystem (LSASS) provides user authentication services, manages the local security policy, and generates access tokens.
-            services.exe the Services Control Manager (SCM) loads AutoStart services, using LSASS to authenticate if they run as something other than System.
-        -wininit.exe then waits for system shutdown to undo everything it started.
 
-Session 1 is for the first interactive user
+    -smss.exe installs the Win32 subsystem kernel and user mode components (win32k.sys - kernel; winsrv.dll - user; and csrss.exe - user.)
+        -csrss.exe - the Client/Server Runtime Subsystem: supports process / thread creation and management. Subsystem processes, like kernel32, user32m, advapi32, win32k.ysy(kernel mode),.dlls.
+        -wininit.exe marks itself as critical, initializes the Windows temp directory, loads the rest of the registry, and starts user mode scheduling. It also installs programs that require a reboot to finish the install process. It also starts:
+            lsm.exe - the Local Session Manager (LSM): handles all sessions of a system (both remote desktop sessions and local system sessions.)
+            lsass.exe - the Local Security Authority Subsystem (LSASS): provides user authentication services, manages the local security policy, and generates access tokens.
+            services.exe the Services Control Manager (SCM) loads AutoStart services, using LSASS to authenticate if they run as something other than System.
+        -wininit.exe then waits for system shutdown to undo everything it started. 
+
+Session 1 is for the first interactive user (interactive)
+User subsystem Session 1:
+
     Spawn a Session 1 ( or higher) csrss.exe ( each user has one)
-    Spawn Winlogon.exe which by default prompts for credentials with logonui.exe
-    Spawn userinit.exe which creates an account token and creates a custom environment
-    Spawn explorer.exe as the customized graphical environment.
+    Spawn Winlogon.exe which by default prompts for credentials with logonui.exe      ### service accounts do not have this
+         Spawn userinit.exe which creates an account token and creates a custom environment     ### userinit, lauches explorer and kills userinit, has pid of userinit
+             Spawn explorer.exe as the customized graphical environment.
 
 
 
