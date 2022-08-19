@@ -108,7 +108,7 @@ UEFI - GTP - grub.efi ----              - Systemd Init (/lib/systemd/systemd); e
 
 Interactive shells:
 /etc/environment loads after boot, Global variables, delimited by colons. ( global and system wide)
-/etc/profile loads after every login, systemwide. enable user customizations. cheack and evaulated /etc/bash.bashrc (  gloabl and system wide), when you can screw with all user shells. easy persistence!
+/etc/profile loads after every login, systemwide. enable user customizations. cheack and evaulated /etc/bash.bashrc (global and system wide), when you can screw with all user shells. easy persistence!
 /etc/profile.d
 $home/.bashrc is for individual user (local), interactive non-login shells ( not needing login, aka read /etc/bash.bashrc and .bashrc) 
 .bash_profile also for user, interacttive login-shell, also called .profile
