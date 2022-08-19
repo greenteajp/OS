@@ -105,6 +105,19 @@ BIOS - MBR - grub - Linux Kernel - init - SysV Init (/sbin/init); executes scrip
 UEFI - GTP - grub.efi ----              - Systemd Init (/lib/systemd/systemd); executes *.units in target.units to       -   
                                               -EITHER OR- ^
 
+
+Interactive shells:
+/etc/environment loads after boot, Global variables, delimited by colons. ( global and system wide)
+/etc/profile loads after every login, systemwide. enable user customizations. cheack and evaulated /etc/bash.bashrc (  gloabl and system wide)
+/etc/profile.d
+$home/.profile is for individual user (local), interactive non-login shells ( not needing login, read /etc/bash.bashrc and .bsahrc)
+.bash_profile also for user
+
+/etc/profile is where you can screw with all user shells
+
+
+
+
 SYSV:
  The machine’s BIOS or boot firmware loads and runs a boot loader.
  The boot loader(“Grub” located in MBR) finds the kernel image on disk, loads it into memory, and starts it.
@@ -132,20 +145,49 @@ SYSV:
   
   
   
-  
-  
-
- 
 
  
  VS Systemd:
-  
-
+ 
   parallel
   ini-likefiles
   system.conf
-  target units
   
+  
+  
+  
+  
+  
+  target units  (/etc/systemd/system)
+    0 poweroff.target
+    1 rescue.target
+    2 multi-user.target ### no network
+    3 multi-user.target ### with net
+    4 multi-user.target ### unsed, for custom
+    5 graphical.target
+    6 reboot.target
+      default.target is in /lib/systemd/system
+        ls -lisa /lib/systemd/system/default.target -> shows def
+          units : value=data
+          "requires" are .targets                                                                   
+          "wants" are .service
+          "after" is to test against to see if fails
+          "yes" = "sudo systemctl isolate multi-user.target"
+        
+     ### want and requires will search here and more : https://www.man7.org/linux/man-pages/man5/systemd.unit.5.html
+/etc/systemd/system/*     ### user created services; i.e to try and find it ls -l /etc/systemd/system | grep "graphical" 
+/usr/lib/systemd/system/* -OR- /lib/systemd/system/*     ### services created by packages maintainers
+/run/systemd/generator/*    ###
+
+
+systemctl show
+                                  
+systemctl list-dependencies graphical.target      ### green is active, white is inactive;
+                            <name of target>  
+systemctl show -p Wants graphical.target  ### shows the number of wants
+systemctl list-unit-files   ### 
+systemctl cat graphical.target    ### shows target location
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 GRUB/KERNEL:
 
