@@ -125,9 +125,10 @@ SYSV:
  The kernel starts a program called init with a process ID of 1. This point is the user space start., hardodding to execute /sbin/init for backwards compatibility, and/por systemd daemon (pid 1)
  Init sets the rest of the system processes in motion via pre-configured runlevels. Service/process manager
   serial    ### loads everything in order
-  scripts   ### ls /etc/rc3.d   S=start K=stop
-  inittab   ### cat /etc/inittab config table for init, tells runlevel  ##3 only works for SYSV                 
+  scripts   ### ls /etc/rc3.d (rc4, rc5...) S=start K=stop
+  inittab   ### cat /etc/inittab config table for init, tells runlevel, finds out what to do  ##3 only works for SYSV                 
                     /sbin/init
+                    /etc/init.d   
   /etc/init.d  ##3 shows all the S & K scripts
   ls -l /etc/rc3.d
       scripts that point to files to run , in order of S(start) or K(stop)
@@ -171,6 +172,7 @@ SYSV:
 /etc/systemd/system/*     ### user created services; i.e to try and find it ls -l /etc/systemd/system | grep "graphical" 
 /usr/lib/systemd/system/* -OR- /lib/systemd/system/*     ### services created by packages maintainers
 /run/systemd/generator/*    ###
+does not have /etc/inittab
 
 
 systemctl show
