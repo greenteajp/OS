@@ -111,7 +111,7 @@ Interactive shells:
 /etc/profile loads after every login, systemwide. enable user customizations. cheack and evaulated /etc/bash.bashrc (global and system wide), when you can screw with all user shells. easy persistence!
 /etc/profile.d
 $home/.bashrc is for individual user (local), interactive non-login shells ( not needing login, aka read /etc/bash.bashrc and .bashrc) 
-.bash_profile also for user, interacttive login-shell, also called .profile
+.bash_profile also for user, interacttive login-shell, also Standard message logging called .profile
 
 
 
@@ -135,7 +135,7 @@ SYSV:
   
   runlevel
     0, Halt ### Shutdown the system
-    1,Single User ### single user no network
+    1,Single User ### single user no networkca
     2,Multi-user mode ### multi user no network
     3,mulit-user w/ network
     4,not used, reserved for custom runlevels
@@ -189,7 +189,7 @@ GRUB/KERNEL:
 lsblk
   what/where disks are in the system
 df -h
-  shows the location of disks, i.e /dev/vda1 ( number is the partition #, vda is the prefix of the whole disk)=
+  shows the location of disks, i.e /dev/vda1 ( number is the partition #, vda is the prefi of the whole disk)=
 sudo parted -l
   where is bios, partition table. Info about the disk
  
@@ -198,6 +198,10 @@ sudo xxd -l 512 -g 1 /dev/vda (terra), shows the hexes
   eb 63, hex representation of hex code instruction for "jump", followed by NOOP(90 00 00 00), 00000060, then 3rd byte
   last 66 bytes make up partition, 4 bytes with 16 bytes, then last 2 for magic number. Last 2 should be 55 aa.
 
+
+dd if=mbroken  bs=1  count=446 | md5sum
+dd if=mbroken  bs=1 skip=392 count=4 | md5sum
+dd if=mbroken  bs=1 skip=446 count=16 | md5sum
 sudo dd if=/dev/sda of=MBRcopy bs=1 count=512
   makes a DOS/MBR boot sector, of that
 sudo xxd MBRcopy to read file
@@ -209,7 +213,7 @@ ls -l /sbin/init
 lsat field is command to be executed
       
 
-
+b5cffa520ffea9573ca73ce8dad5cc1b
 BIOS system using MBR:
     Stage 1 : boot.img located in the first 440 bytes of the MBR loads…
     Stage 1.5 : core.img located in the MBR between the bootstrap and first partition. It loads…​
@@ -218,7 +222,7 @@ BIOS system using MBR:
 UEFI Systems using GPT:
     Stage 1 : grubx64.efi Located on an EFI partition or in /boot loads…​
     Stage 2 : /boot/grub/x86_64-efi/normal.mod
-        /boot/grub/grub.cfg Which displays a list of Linux kernels available to load on the system
+        /boot/grub/grub.cfg Which displays a list of4279170e3936e5008b72a1e0c2e3d3ed Linux kernels available to load on the system
 
 cat /boot/grub/grub.cfg
   linux   /boot/vmlinuz-4.15.0-76-generic      ### contains the Linux Kernel
@@ -229,12 +233,7 @@ cat /boot/grub/grub.cfg
 
 
 
-
-
-
-
-
-
+cat /etc/inittab | grep "default"
 
 
 
