@@ -310,8 +310,6 @@ User Account Control:
 -requireadmin; user must be a builtin admin, or in the group, or known admin creds
 -highestavailable; runs with the highest perm level that it can. still prompts
 
-
-
 the UAC prompt will show if :
     - bottom two are sysinternal tools
     Auto Elvate is True
@@ -321,8 +319,10 @@ the UAC prompt will show if :
     Trusted Directory
         i.e C:\Windows\System32
 
-
-
+uipi/secure desktop
+  -protects against shatter attacks
+  -cant interact with anything else when prompt comes up.
+      concentpromptbehvaioradmin/user
 
 
 
