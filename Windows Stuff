@@ -240,13 +240,6 @@ how would malware use schedule tasks:
   task scheduler app (copy and paste for schtasks in powershell)
 
 
-
-
-
-
-
-
-
 misc:
 Get-Process chrome | foreach {$a} {$_.modules} | more
 
@@ -295,7 +288,43 @@ autoruns
 processmonitor (procmon)
     -logs boot process
     -shows real-time file sys, registry and process/thread activity
+tcpview
+    -netstat-like netwiork listing. Dynamic information, refreshes.All tcp, udp endpoints. local and remote addresses.
+handle
+    -open file references
+    -can be used to terminate a handle to a file
     
+accesschk
+    -effective file permissions
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+User Account Control:
+
+
+-gui only service
+  -limits priv of who can run the thing
+    reg key : "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+                      -enableLUA
+
+-asinvoker; uses privs of whoever is trying to execute binary
+-requireadmin; user must be a builtin admin, or in the group, or known admin creds
+-highestavailable; runs with the highest perm level that it can. still prompts
+
+
+
+the UAC prompt will show if :
+    - bottom two are sysinternal tools
+    Auto Elvate is True
+        ./strings C:\Windows\System32\*.exe -accepteula | select-string -SimpleMatch "autoelevate"
+    Digitally Signed
+        ./sigcheck -m C:\Windows\System32\slui.exe -accepteula | Select-String -SimpleMatch "level"
+    Trusted Directory
+        i.e C:\Windows\System32
+
+
+
+
+
 
 
 
