@@ -3,7 +3,6 @@ ssh student@10.50.38.82 -Y      (LIN-OPS)   # linop=
 xfreerdp /u:student /v:10.50.36.193 /dynamic-resolution +glyph-cache +clipboard   (WIN-OPS)
 xfreerdp /u:student /v:10.50.39.203 /dynamic-resolution +glyph-cache +clipboard    (Admin-Station; student:password)
                     File-server (ssh) :10.19.0.3 (andy.dwyer:BurtMacklinFBI)
-cd ..
 
 CTFD: http://10.50.22.25:8000/
 
@@ -274,7 +273,7 @@ get-ciminstance win32_process | select * | select processid, parentproccessid, n
                                                                                                                                             .proccessid -like "proccesid"
                                                                                                                                                         -like "parentproccessid"
 netstat -anob
-
+ netsh advfirewall show allprofiles
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SYSINTERNALS:
 
@@ -296,7 +295,7 @@ handle
     
 accesschk
     -effective file permissions
-
+listdlls
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 User Account Control:
 
