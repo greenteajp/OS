@@ -246,20 +246,27 @@ Get-Process -Name "*chrome*" | Select-Object -ExpandProperty Modules | Where-Obj
 Get-CimInstance Win32_Process | where {$_.Name -like "*LSASS*"} | select *
     look at process name and name
     
-    
-    
-    
 ps -name lsass | select -ExpandProperty modules
     gets handles(dlls) that a process/binary is using
       Get-Process -name lsass | select -ExpandProperty modules | ft -wrap | Out-file C:\Users\student\Desktop\handels.txt -width 4096
       ps -Name lsass | select -ExpandProperty modules | ft -wrap
 
 
-
 get-service /sc.exe
-
-
 sc.exe showsid powershell_ise,power     -need to use service name
+sc.exe queryex type=service state=inactive  ### active by default
+ 
+ 
+ 
+ 
+Get-WmiObject win32_service |select-object -property * | where-object { $_.Name -Like '*DHCP*'}
+                                                      name, description
+                                                       | where { $_.displayname -like "*firewall*"} | select name, displayname
+
+
+
+
+
 
 
 
