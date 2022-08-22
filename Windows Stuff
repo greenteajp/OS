@@ -207,7 +207,11 @@ virustotal.com (checks hash, owned by google)
 process requires some interaction, a service runs in the background with rarely any interaction.
 dll: library that contains pointers to resources available for other programs. dlls are handles the binary are using
 "svchost.exe -k" always equals a legit service
+"conhost.exe" means cli or pwsh
 
+
+
+scheduled tasked; good form of persistence
 
 
 hidden processes, services, and finding normal/abnormal activity:
@@ -226,10 +230,19 @@ priority levels of processes important:
   get-process | select name, priorityclass
   tasklist /m  /v   /svc
 
+
+
 how would malware use schedule tasks:
   schtasks /query | more
-  get-scheduledtasl | select * | select -first 5
+  get-scheduledtask | select * | select -first 5
+  schtasks /query /tn "\microsoft\xblgamesave\xblgamesavetask"  /v /fo list
   
+  task scheduler app (copy and paste for schtasks in powershell)
+
+
+
+
+
 
 
 
@@ -262,6 +275,30 @@ sc.exe queryex type=service state=inactive  ### active by default
 Get-WmiObject win32_service |select-object -property * | where-object { $_.Name -Like '*DHCP*'}
                                                       name, description
                                                        | where { $_.displayname -like "*firewall*"} | select name, displayname
+
+
+get-ciminstance win32_process | select * | select processid, parentproccessid, name ,commandline | out-file <file> -width 2014 | where { $_.name -like "*powershell*"}
+                                                                                                                                            .proccessid -like "proccesid"
+                                                                                                                                                        -like "parentproccessid"
+netstat -anob
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SYSINTERNALS:
+
+processexplorer (procexp) 
+    -collects info on running processes, hierarchical view, live cpu activity, kill and suspend procs, dlls loaded, handles. 
+    -tree format
+    -better than windows tasks mngr
+autoruns
+    -shows apps auto started on boot as well as the registry and file system locations for auto-start configs
+    -views scheduled tasks, services and image hijacks
+processmonitor (procmon)
+    -logs boot process
+    -shows real-time file sys, registry and process/thread activity
+    
+
+
+
 
 
 
