@@ -35,8 +35,10 @@ Receive-Job <job #>                                                             
 new-pssession -computername (-port -name -credential)   ### like ssh to another PC      (name, fqdn, netbios, servername)
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DAY2: WINDOWS REGISTRY
 https://os.cybbh.io/public/os/latest/004_windows_registry/reg_fg.html
 regedit
@@ -120,6 +122,8 @@ new-itemproperty -path HKLM...currentversion\run -name 'name' -propertytype Stri
                         HKEY_Users...^
 
 
+
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DAY4: WINDOWS BOOT PROCESS AND BCD EDIT
 
@@ -196,20 +200,66 @@ shutdown /a
 
 
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DAY7: WINDOWS PROCESS VALIDITY \USER ACCOUNT CONTROL\ SYSINTERAL TOOLS
+virustotal.com (checks hash, owned by google)
+
+process requires some interaction, a service runs in the background with rarely any interaction.
+dll: library that contains pointers to resources available for other programs. dlls are handles the binary are using
+"svchost.exe -k" always equals a legit service
+
+
+
+hidden processes, services, and finding normal/abnormal activity:
+  get-process SMSS.SCRSS,LSASS | sort -property ID
+  
+boot processes with descriptions:
+  get-process | select name, id, description | sort -property ID
+
+system processes and services that normally run from:
+  get-process | select name, id, path
+  get-ciminstance win32_service(process) | select name, processid, pathname, commandline, parent processid | ft | out-file $HOME\desktop\services.txt
+  get-wmiobject                                               ### these are better for hidden processes
+  get-ciminstance Win32_process | select * -first 1
+    
+priority levels of processes important:
+  get-process | select name, priorityclass
+  tasklist /m  /v   /svc
+
+how would malware use schedule tasks:
+  schtasks /query | more
+  get-scheduledtasl | select * | select -first 5
+  
 
 
 
 
+misc:
+Get-Process chrome | foreach {$a} {$_.modules} | more
+
+Get-Process -Name "*chrome*" | Select-Object -ExpandProperty Modules | more
+
+Get-Process chrome | foreach {$a} {$_.modules} | Where-Object ModuleName -like '*chrome*' | more
+
+Get-Process -Name "*chrome*" | Select-Object -ExpandProperty Modules | Where-Object ModuleName -like '*chrome*' | more
+
+Get-CimInstance Win32_Process | where {$_.Name -like "*LSASS*"} | select *
+    look at process name and name
+    
+    
+    
+    
+ps -name lsass | select -ExpandProperty modules
+    gets handles(dlls) that a process/binary is using
+      Get-Process -name lsass | select -ExpandProperty modules | ft -wrap | Out-file C:\Users\student\Desktop\handels.txt -width 4096
+      ps -Name lsass | select -ExpandProperty modules | ft -wrap
 
 
 
+get-service /sc.exe
 
 
-
-
-
-
-
+sc.exe showsid powershell_ise,power     -need to use service name
 
 
 
