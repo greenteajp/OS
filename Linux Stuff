@@ -334,21 +334,38 @@ CRON JOBS:
         also in /etc/cron.d
     user cron jobs:
         use 'crontab' command to create cron jobs
-        stored in /var/spool/con/crontabs/
+        stored in /var/spool/con/crontabs/<user> -location
      
     crontab -u [user] file This command will load the crontab data from the specified file
-    crontab -l -u [user] This command will display/list user’s crontab contents
+    crontab -l -u [user] This command will display/list user’s crontab contents		### need root priv
     crontab -r -u [user] This Command will remove user’s crontab contents
-    crontab -e -u [user] This command will edit user’s crontab contents
-
+    <sudo> crontab -e -u [user] This command will edit user’s crontab contents
+	#crontab jobs run with the permissions of the owner of the crontab file
 	
+	
+	
+EX:
+        * * * * * /directory/and/command
+| | | | |
+| | | | +---- Day of the Week   (range: 0-7, 1 = Monday) 0/7 is sunday
+| | | +------ Month of the Year (range: 1-12)
+| | +-------- Day of the Month  (range: 1-31)
+| +---------- Hour              (range: 0-23)
++------------ Minute            (range: 0-59)
         
+        ────────── minute (0 - 59)
+  │ ┌───────────── hour (0 - 23)
+  │ │ ┌───────────── day of the month (1 - 31)
+  │ │ │ ┌───────────── month (1 - 12)
+  │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+  │ │ │ │ │                           7 is also Sunday on some systems)
+  │ │ │ │ │
+  │ │ │ │ │
+  * * * * * <Time/Day to execute    "Command to Execute"
         
-        
-        
-        
-        
-        
+    EX:
+    ** `12 4 * * *`    /usr/bin/backup
+    ** `0 0-5,21-23 * * *`    echo $(ss -nltp) >> /home/andy.dwyer/tcplist.context
 
 
 
