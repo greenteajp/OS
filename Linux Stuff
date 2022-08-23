@@ -369,17 +369,25 @@ EX:
 
 
 
+PROCESSES AND PROC DIR:
+sudo !!
+sudo lsof | tail -30 ;list all open files being used by every process
+sudo lsof -c sshd ; for a specific process
 
+ls /proc/<ID#>, to see for that process
+sudo lsof -p <#>
 
+Grab the PID of a process.
+    ps -elf | grep sshd
 
+List all the proc directories.
+    ls -l /proc/
 
+List contents for that PID directory.
+    sudo ls -l /proc/14139
 
-
-
-
-
-
-
+file descriptors: 0,1,2, stout, in, err. ++ is just files
+			r read, w write, u read and write
 
 
 
