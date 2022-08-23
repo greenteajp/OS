@@ -180,9 +180,9 @@ systemctl show
 systemctl list-dependencies graphical.target      ### green is active, white is inactive;
                             <name of target>  
 systemctl show -p Wants graphical.target  ### shows the number of wants
-systemctl list-unit-files   ### 
+systemctl list-units-files	--all   ### all the unit files
 systemctl cat graphical.target    ### shows target location
-
+systemctl list-units --all --type service
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 GRUB/KERNEL:
 
@@ -302,11 +302,11 @@ zombie; completed proc, still has a entry in a proc table, waiting for terminati
       ; cant be 'killed' until parent says so
 fork bomb; dos attack, continually replicates itself to deplete sys resources
 
-in PS -elf:'S' field, s sleeping, r running, z zombie ( or defunct proc)
+in ps -elf:'S' field, s sleeping, r running, z zombie ( or defunct proc)
                 
 daemons; background process and services
        ; man cron ( daemon)
-  systemctl - systemd
+  systemctl - systemd			
   rc.d - system v
       ps --ppid 1 -lf; long listing and format of processes that has a ppid of 1 (orphan process!!!)
                      ; if malicious proc is disguised as daemon look here         
@@ -325,6 +325,7 @@ JOBS CONTROL:
   
 
 CRON JOBS:
+  sudo systemctl list-units --all --type timer/mount/service
   cron daemon checks: /var/spool/cron, /etc/cron.d, /etc/crontab 
   two types:
     sys con jobs:
