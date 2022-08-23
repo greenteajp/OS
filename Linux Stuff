@@ -241,6 +241,182 @@ cat /etc/inittab | grep "default"
 
 egrep '^([0-9A-Fa-f][0,2,4,6,8,A,C,E][:-])([0-9A-Fa-f]{2}[:-]){4}([0-9A-Fa-f]{2})$' numbers  | wc -l
 grep -vofF
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DAY8: LINUX PROCESS VALIDITY
+
+two primary process after startup:
+kernel-space processes [kthreadd] (pid 2)
+  kernel processes are fork()ed from kthread
+   process in [], have a ppid of 2, thus kernel processes
+   -access to everything, has separate memory space. can crash if process is abruptly killed
+
+user-space processes /sbin/init (pid 2)
+  user processes are fork()ed from /sbin/init
+  -restricted to a subset of memeory sand safe cpu operations
+ 
+view processes:
+ps -elf,static ; long listings, everything,
+ps -Nlf --ppid 2 ; everything that does not have a ppid of 2 ( ie kernel processes)
+                  --forest ; process tree from child to parent, follows ppid to pid
+                           | grep -B/A 8 ps     ; specifiy before/after a number of  lines
+                                    --context 8 ps  ; before and after
+top,dynamic
+load average; numbers represent minutes, first last 1, second last 5, third last 15
+            ; tells if system if being heavily loaded and in what time
+   'f' key; fields mgmt         
+   'shift v' key; tree view
+   
+htop; better 'top'
+  'f5' key, tree
+  'f2' key, options, etc.
+
+
+Proc ownership,euid,ruid:
+  effective user Id (euid): defines access rights for a process
+    second uid, ruid, indicates who initiated a proc
+   
+  real user Id(ruid): who you really are. the user that can interact w/ running process-most significantly, 
+    which user can kill and send signals to a proc
+
+IE, I'm student (ruid) running a thing as root(euid)
+  users can only modify /interact with files /process that they own or have been shared with them
+
+
+SYSTEM CALLS:
+other sys calls: read, write, close, wait, kill
+
+fork(): kernel creates nearly identical copy of the process
+exec(): kernel starts program, replacing current process.
+    shell -> fork() -> shell
+                    -> copy of shell -> exec(ls) -> ls
+
+
+ORPHAN AND ZOMBIE PROC:
+orphan; process that lost its parent proc
+      ; systemd or init adopts orphan proc
+      ; all daemons(background proc) are orphans, not every orphan is a daemon
+      disown -a && exit ## close a shell/terminal and force all children to be adopted
+
+zombie; completed proc, still has a entry in a proc table, waiting for termination from parent
+      ; no resources are used but occupies proc table
+      ; cant be 'killed' until parent says so
+fork bomb; dos attack, continually replicates itself to deplete sys resources
+
+in PS -elf:'S' field, s sleeping, r running, z zombie ( or defunct proc)
+                
+daemons; background process and services
+       ; man cron ( daemon)
+  systemctl - systemd
+  rc.d - system v
+      ps --ppid 1 -lf; long listing and format of processes that has a ppid of 1 (orphan process!!!)
+                     ; if malicious proc is disguised as daemon look here         
+
+
+JOBS CONTROL:
+  'jobs'; display list of jobs running in bg
+  'fg' or 'bg', pull/push jobs to/from forground/background
+  'kill -l', shows all the signals you can run
+  'kill %<job number>'; terminate proc by job number
+  kill -19; stop /suspend the job
+  'kill -9 <PID>' or 'pkill -9 <process name>'
+  stop proc = SIGSTOP(19), pause signal, not kill
+  end proc = SIGTERM(15),termination signal the right way. wont iniates shutdown tasks
+  kill proc = SIGKILL(9), kill signal, extreme, only use if sigterm doesnt work, wont iniate shutdown tasks
+  
+
+CRON JOBS:
+  cron daemon checks: /var/spool/cron, /etc/cron.d, /etc/crontab 
+  two types:
+    sys con jobs:
+        runs as root
+        sys-wide maintenance tasks
+        controlled by /etc/crontab
+        also in /etc/cron.d
+    user cron jobs:
+        use 'crontab' command to create cron jobs
+        stored in /var/spool/con/crontabs/
+     
+    crontab -u [user] file This command will load the crontab data from the specified file
+    crontab -l -u [user] This command will display/list user’s crontab contents
+    crontab -r -u [user] This Command will remove user’s crontab contents
+    crontab -e -u [user] This command will edit user’s crontab contents
+
+	
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
