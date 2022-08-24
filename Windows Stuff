@@ -414,21 +414,49 @@ Get-Item "REGISTRY::HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\Explo
 Browser Artifacts:
   store details for each user acct
   history: records the access to the file on a website accessed via a link
+  location:
+      %USERPROFILE%\AppData\Local\Google\Chrome\User Data\Default\history
+
       .\strings.exe 'C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Default\History'
+      
   fgdns in sqlite txt files:
       $History = (Get-Content 'C:\users\<username>\AppData\Local\Google\Chrome\User Data\Default\History') -replace "[^a-zA-Z0-9\.\:\/]",""
 
       $History| Select-String -Pattern "(https|http):\/\/[a-zA-Z_0-9]+\.\w+[\.]?\w+" -AllMatches|foreach {$_.Matches.Groups[0].Value}| ft
 
+Usernames:
+  strings.exe  'C:\users\andy.dwyer\AppData\Local\Google\Chrome\User Data\Default\Login Data'   ###sysinteraltools
+Most visited:
+  strings.exe 'C:\users\andy.dwyer\AppData\Local\Google\Chrome\User Data\Default\Top Sites'     ###sysinternaltools
+Frequency:
+  \strings.exe 'C:\users\andy.dwyer\AppData\Local\Google\Chrome\User Data\Default\History' -accepteula
 
 
+AUDITING:  
+event logs: applications, security(valid/invalid logon/offs, deleting files, etc.), system(logs created by system or critical to sys), customlog(logs told to create, even through applications)
+auditpol /get /category:*
+    gets entire auditpol list
+  
+auditpol /set/ subcategory:"File System"
+                                            /success:disable
+
+Get-EventLog -LogName *
+Get-EventLog -LogName Security -Message "*remote*" | ft -wrap
+Get-EventLog -LogName System -Newest 10 
 
 
+get-winevent -FilterHashtable @{logname="security";id="4624"} | select -first 5 | ft -wrap
+Get-WinEvent -Listlog *
+Get-WinEvent -Listlog * | findstr /i "Security" 
+Get-WinEvent Microsoft-Windows-PowerShell/Operational | Where-Object {$_.Message -ilike "*RunspacePool*"} | Format-List
+Get-WinEvent Microsoft-Windows-PowerShell/Operational | Where-Object {$_.Message -ilike "*Pipeline ID = ##"} | Format-List 
 
 
-
-
-
-
-
+https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/Default.aspx
+User Added to Privileged Group
+4728, 4732, 4756
+Security-Enabled group Modification
+4735
+Successful/ Failed User Account Login
+4624, 4625
 
