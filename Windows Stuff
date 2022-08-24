@@ -322,6 +322,103 @@ uipi/secure desktop
   -protects against shatter attacks
   -cant interact with anything else when prompt comes up.
       concentpromptbehvaioradmin/user
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DAY9:WINDOWS AUDITING & LOGGING
+
+(STEP1):
+Getting User SID:
+  get-wmiobject win32_useraccount | select name,sid (PowerShell)    ### local and domain users and SID
+ * Get-LocalUser | select Name,SID (PowerShell)       ### local and SIDs
+  wmic useraccount get name,sid (CMD.EXE ONLY)      ### cli, or wmic.exe in pwsh
+
+
+ARTIFACTS:
+Userassist:
+  userassit reg keys tracks gui-based programs that were ran by a particular user
+  view executable Files run:        ### also list of applications,files,links,
+      Get-ItemProperty 'REGISTRY::HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\Count'
+  View Shortcut files executed      ### list shortcut links used to start program
+      Get-ItemProperty 'REGISTRY::HKEY_USERS\*\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{F4E57C4B-2036-45F0-A9AB-443BCFE33D9F}\Count'
+   ### Output shows the Executable files encoded with ROT13. Copy/ Paste the output into a decdoer site like Rot13 or CyberChef
+
+
+Windows Background Activity Moderator (BAM):
+  Windows service that controls activity of background applications     ### enabled by default, only for GUIs
+    winver, $PSVersionTable
+      Get-Itemproperty 'HKLM:\SYSTEM\CurrentControlSet\Services\bam\UserSettings\*' (Windows 1709 & 1803)
+      Get-Itemproperty 'HKLM:\SYSTEM\CurrentControlSet\Services\bam\state\UserSettings\*' (Windows 1809 and newer)
+                ### if 'C:\' is present, wrong because it was manually put there
+                ### tells user acct that ran the entry
+
+
+Recycle Bin:
+  gci "C:\`$Recycle.Bin" -force
+  gci 'C:\$RECYCLE.BIN' -Recurse -Verbose -Force | select *
+  gci 'C:\$RECYCLE.BIN' -Recurse -Force
+                                          | foreach-object { if ( ($_.extension) -like ".txt") { if ( $_.Name -like "`$R*" ) { Write-host $_.Name -NoNewLine ; Write-Host " --> " -ForegroundColor Green -NoNewLine ; get-content $_.fullname } } }
+
+  Get-Childitem 'C:\$RECYCLE.BIN' -Recurse -Verbose -Force | select FullName 
+              ####wmic useraccount where 'sid="S-1-5-21-1584283910-3275287195-1754958050-1005"' get name   gives user acct name that the SID belongs to
+  Get-Content 'C:\$Recycle.Bin\S-1-5-21-1584283910-3275287195-1754958050-1005\$R8QZ1U8.txt'
+            ####This is the file for Auditing 
+
+    SID - determines which user deleted it
+    Timestamp - When it was deleted
+    $RXXXXXX - content of deleted files
+    $IXXXXXX - original PATH and name
+
+
+Prefetch:
+  prefetch files ae creted by the windows os sys when an application is ran for the first time from a specific location
+  speed up application startup process; only saves files from application that have RAM. Stores last 1024 exes in RAM
+      gci -Path 'C:\Windows\Prefetch' -ErrorAction Continue | select * | select -first 5/8/etc
+
+
+Jump Lists:
+### win 7-10, allows users to 'jump' to recently,frequently used files
+gci -Recurse C:\Users\*\AppData\Roaming\Microsoft\Windows\Recent -ErrorAction Continue | select FullName, LastAccessTime, creationtime
+
+Win7/8/10
+C:\%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations (C:\Users\king\AppData\Roaming\Microsoft\Windows\Recent)
+Show in Explorer:
+C:\%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations (C:\Users\king\AppData\Roaming\Microsoft\Windows\Recent)
+
+
+Get-Childitem -Recurse C:\Users\*\AppData\Roaming\Microsoft\Windows\Recent -ErrorAction Continue | select FullName, LastAccessTime
+Get-Childitem -Recurse $env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Recent -ErrorAction SilentlyContinue | select FullName,LastAccessTime
+
+-OR-
+- Make sure sysinternals is mounted or unzipped
+- Gci C:\users\student\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations | % {z:\strings.exe -accepteula $_} >> c:\recentdocs.txt
+
+
+
+Recent Files:
+tracks last 150 files/folder opened
+entry/mod time is last file of a specific extension open
+
+Location of recent files:
+    gci 'Registry::Hkey_Users\*\\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs\*'
+    HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs\*
+    HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs\.txt
+
+queries hex value stored in key:
+Get-Item 'Registry::\HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs\.*'
+
+Convert all of a users values from HEX to Unicode:
+Get-Item "REGISTRY::HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs\.txt" | select -Expand property | ForEach-Object {
+    [System.Text.Encoding]::Default.GetString((Get-ItemProperty -Path "REGISTRY::HKEY_USERS\*\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs\.txt" -Name $_)
+
+
+
+Browser Artifacts:
+  store details for each user acct
+  history: records the access to the file on a website accessed via a link
+      .\strings.exe 'C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Default\History'
+  fgdns in sqlite txt files:
+      $History = (Get-Content 'C:\users\<username>\AppData\Local\Google\Chrome\User Data\Default\History') -replace "[^a-zA-Z0-9\.\:\/]",""
+
+      $History| Select-String -Pattern "(https|http):\/\/[a-zA-Z_0-9]+\.\w+[\.]?\w+" -AllMatches|foreach {$_.Matches.Groups[0].Value}| ft
 
 
 
