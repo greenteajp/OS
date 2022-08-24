@@ -260,7 +260,7 @@ ps -name lsass | select -ExpandProperty modules
 get-service /sc.exe
 sc.exe showsid powershell_ise,power     -need to use service name
 sc.exe queryex type=service state=inactive  ### active by default
- 
+sc.exe showsid <service name>
  
  
  
