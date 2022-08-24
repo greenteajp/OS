@@ -354,8 +354,7 @@ Windows Background Activity Moderator (BAM):
 Recycle Bin:
   gci "C:\`$Recycle.Bin" -force
   gci 'C:\$RECYCLE.BIN' -Recurse -Verbose -Force | select *
-  gci 'C:\$RECYCLE.BIN' -Recurse -Force
-                                          | foreach-object { if ( ($_.extension) -like ".txt") { if ( $_.Name -like "`$R*" ) { Write-host $_.Name -NoNewLine ; Write-Host " --> " -ForegroundColor Green -NoNewLine ; get-content $_.fullname } } }
+  gci 'C:\$RECYCLE.BIN' -Recurse -Force| foreach-object { if ( ($_.extension) -like ".txt") { if ( $_.Name -like "`$R*" ) { Write-host $_.Name -NoNewLine ; Write-Host " --> " -ForegroundColor Green -NoNewLine ; get-content $_.fullname } } }
 
   Get-Childitem 'C:\$RECYCLE.BIN' -Recurse -Verbose -Force | select FullName 
               ####wmic useraccount where 'sid="S-1-5-21-1584283910-3275287195-1754958050-1005"' get name   gives user acct name that the SID belongs to
@@ -419,8 +418,8 @@ Browser Artifacts:
 
       .\strings.exe 'C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Default\History'
       
-  fgdns in sqlite txt files:
-      $History = (Get-Content 'C:\users\<username>\AppData\Local\Google\Chrome\User Data\Default\History') -replace "[^a-zA-Z0-9\.\:\/]",""
+  fqdns in sqlite txt files:
+      $History = (Get-Content 'C:\users\*\AppData\Local\Google\Chrome\User Data\Default\History') -replace "[^a-zA-Z0-9\.\:\/]",""
 
       $History| Select-String -Pattern "(https|http):\/\/[a-zA-Z_0-9]+\.\w+[\.]?\w+" -AllMatches|foreach {$_.Matches.Groups[0].Value}| ft
 
