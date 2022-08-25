@@ -428,6 +428,7 @@ LOG TYPES:
         /var/log/mysql.log
 
 
+
     System
         /var/log/messages - Legacy Catch all
 		### SysV
@@ -442,15 +443,18 @@ LOG TYPES:
     Logging At A Glance
     	Location : /var/log			### most of logs here
     	Config File : /etc/rsyslog.conf		### sysV
-    	Service : /usr/sbin/rsyslogd		
+    	***** Service : /usr/sbin/rsyslogd		
 		### both sysV and systemd, logging daemon
 		### reads messages written to /dev/lpog, then formats/stores them based on /etc/rsyslog.conf
 		### auditd
 		###syslog() via libc
-	/etc/rsyslog.conf				'@' = UDP, '@@' = TCP, for sockets(IP:Port)
+	/etc/rsyslog.conf				
+		### '@' = UDP, '@@' = TCP, for sockets(IP:Port)
+		### *.info ; means all severity from info AND HIGHER
+		### !.info = means everything but info
 		### syslog standard, facility.severity
-		### FACILITY= what program, or part of sys, log is from
-		0   kernel messages
+	### FACILITY= what program, or part of sys, log is from
+0   kernel messages
 1   user-level messages
 2   mail system
 3   system daemons
@@ -463,7 +467,7 @@ LOG TYPES:
 10  security/authorization messages
 11  FTP daemon
 12  NTP subsystem13|log audit
-		### SEVERITY= URGENCY
+	### SEVERITY= URGENCY
 0  emerg, panic:  Emergency: system is unusable
 1  alert:         Action must be taken immediately
 2  crit:          Critical conditions
