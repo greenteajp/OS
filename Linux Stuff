@@ -547,19 +547,27 @@ Vaolatility ( program):
         Linpmem
         Winpmem
         OSXpmem
-
-.\volatility_2.6_win64_standalone.exe -h
+COMMANDS
+findstr /i
+plugins: 
+	memdump,procdump,
+	network artifacts: connections, connscan(gives recently active and closed),
+	dlllist( gives dlls for a process), dlldump grabs it and send it to file on workstation via '-D .')
+	looking for processes: pslist, pstree, pscan( gives physical memory address of process)
+	registry analysis: hivedump ( dumps entire hive),hivelist,dumpregistry 
+Ex.
+.\volatility_2.6_win64_standalone.exe -h			### gets all the parameters, and plugins
 .\volatility_2.6_win64_standalone.exe -f ".\cridex.vmem" --profile=WinXPSP2x86 pstree
 .\volatility_2.6_win64_standalone.exe -f ".\cridex.vmem" --profile=WinXPSP2x86 procdump -p 1640 -D .
 		makes a copy of the process and saves it in pwd
 get-filehash -Algorithm md5 .\executable.1640.exec
 		get hash and comapre it to Virustotal.com
 
-
-
-
-
-
+.\volatility_2.6_win64_standalone.exe -f ".\cridex.vmem" --profile=WinXPSP2x86 memdump -p 1640 -D .
+		
+										net use * \\live.sysinternals.com\tools, dont have to change directories to use syinternal tools
+													z:\strings64.exe....
+							z:\strings.exe -accepteula ".\1640.dmp" > 1640.txt ( use with notepad++); regegx for IPs, etc...
 
 
 
