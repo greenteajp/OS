@@ -391,8 +391,12 @@ file descriptors: 0,1,2, stout, in, err. ++ is just files
 			r read, w write, u read and write
 
 
+
+
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DAY 10: Windows Auditing & Logging:
+https://jqplay.org/
 
 syslog							
 RFC 5424	log-rotation
@@ -479,19 +483,28 @@ LOG TYPES:
 
 
 
+Log Enumeration / Management
+Utilize cron jobs / scripts
+    logrotate
+        /etc/logrotate.conf
 
+Journald Logs:
+	systemd-journald.service
+	journalctl -e ### shows last log received
+		   --list-boots
+	 	   -b <bootid>
+		   -u ssh.service
+		   -u ssh.service --since "2 days ago"
+		   
+		 
 
-
-
-
-
-
-
-
-
-
-
-
+Useful Logging Commands
+    tail -f - Continuously show end of file
+    less /var/log/syslog - View Log in page viewer
+    logger - Send a user generated message to system Log i.e. Starting Update
+    > /var/log/messages - Wipes Logs
+        Why do this as opposed to deleting/recreating files?
+    last -f /var/log{wtmp,btmp} - Needed to view data files
 
 
 
@@ -1075,3 +1088,5 @@ CTFD:
 
 
 grep -woFf Inquisition_Targets guardsmne.txt        - woFf compares the first file to the second
+xpath -q  -e '//@addr' output.xml  | md5sum
+xpath -q  -e '//@addr|//@portid' output.xml |md5sum
