@@ -458,4 +458,40 @@ Security-Enabled group Modification
 4735
 Successful/ Failed User Account Login
 4624, 4625
+------------------------------------------------------------------------------------------------------------------------------------------------------
+DAY12: ACTIVE DIRECTORY
+
+Group Nesting:
+    Members in a group can have domain admin prviledges; giving people permissions that they dont need.
+  
+gpresult
+
+Get-GPResultantSetOfPolicy
+    
+Get-ADDefaultDomainPasswordPolicy
+    ### gets pw policies
+Get-ADFineGrainedPasswordPolicy -Filter {name -like "*"}
+    check for fine-grained password policies
+    
+
+gwmi win32_service | where { $_.name -like "adws" -or $_.name -like "kdc" -or $_.name -like "net
+logon" -or $_.name -like "dns" } | select name,state,status
+    ###gets required services for a domain controller.
+
+
+Get-ADDomainController/get-ADForest
+  ###domain details, forest details
+
+Get-ADdomain army.warriors
+ ###queries information for that domain
+
+Get-ADDomainController
+
+Get-ADGroup -Identity 'IA Analysts Team'
+    ###gets group details
+
+Get-SmbShare
+    ###want to see netlogon and sysvol
+
+
 
