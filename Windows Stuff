@@ -493,5 +493,21 @@ Get-ADGroup -Identity 'IA Analysts Team'
 Get-SmbShare
     ###want to see netlogon and sysvol
 
+Get-ADUser -Filter 'Name -like "*"'
+     ###queries for AD users
+     
+Get-ADUser -Identity 'Nina.Webster' -Properties Description   
+    ### see additional properties     
+     
+     
+
+
+
+
+
+
+
+
+
 
 
