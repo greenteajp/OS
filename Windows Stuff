@@ -498,6 +498,9 @@ Get-ADdomain army.warriors
 Get-ADDomainController
 
 Get-ADGroup/Member -Identity 'IA Analysts Team' | "Domain Admins" -Recursive ( | measure ;finds counts)
+  Get-ADGroupMember -Identity "Domain Admins" -Recursive | select objectclass | measure
+  
+  
   
   ###gets group details
     ###Get-ADGroupMember -Identity 'IA Analysts Team' -Recursive
@@ -525,5 +528,9 @@ search-AdAccount -accountdisabled | select name
                 -accountexpired
                 -accountexpiring     
 ###TEMPLATE
-get-aduser -filter * -Properties * | where {$_.<property> -like "*<paterntomatch>*" } | sele
-ct name,<other property>
+get-aduser -filter * -Properties * | where {$_.<property> -like "*<paterntomatch>*" } | select name,<other property>
+                                              .description -like "*built*in*"
+
+et-aduser -filter * -Properties * | select -first 1     ### will show you all properties to query for w/ command above.
+
+get-aduser -filter * -Properties * | where {$_.officephone -like "*336-6754*"}
