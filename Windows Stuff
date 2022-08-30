@@ -464,10 +464,20 @@ DAY12: ACTIVE DIRECTORY
 Group Nesting:
     Members in a group can have domain admin prviledges; giving people permissions that they dont need.
   
-gpresult
+Never run locally as admin. Log as local regular user then 'runas' . Disable local admin!!
+Sus Activity:
+  user accounts loggin into critical infrastructure i.e domain controllers.
+  active moutside normal work hours
+  nested groups, unkown admin accounts
+  service accounts loggin into hosts
 
+
+gpresult  ### group policy object queries
 Get-GPResultantSetOfPolicy
-    
+
+get-module ActiveDirectory    
+get-command -Module ActiveDirectory
+
 Get-ADDefaultDomainPasswordPolicy
     ### gets pw policies
 Get-ADFineGrainedPasswordPolicy -Filter {name -like "*"}
@@ -487,9 +497,10 @@ Get-ADdomain army.warriors
 
 Get-ADDomainController
 
-Get-ADGroup -Identity 'IA Analysts Team'
-    ###gets group details
-
+Get-ADGroup/Member -Identity 'IA Analysts Team' | "Domain Admins" -Recursive ( | measure ;finds counts)
+  
+  ###gets group details
+    ###Get-ADGroupMember -Identity 'IA Analysts Team' -Recursive
 Get-SmbShare
     ###want to see netlogon and sysvol
 
@@ -499,15 +510,20 @@ Get-ADUser -Filter 'Name -like "*"'
 Get-ADUser -Identity 'Nina.Webster' -Properties Description   
     ### see additional properties     
      
-     
+
+Get-ADGroup -Filter * | Select Name, GroupCategory, GroupScope
+
+get-aduser -filter * -Properties * | where {$_.AllowReversiblePasswordEncryption -eq $true }        ### searches for specific property from a get-aduser query
+ | select name                                 PasswordNotRequired
 
 
 
+New-ADUser -Name "Bad Guy" -PasswordNotRequired 1 -Path "OU=3RD LPT,OU=CCO,OU=3RDBN,OU=WARRIORS,DC=ARMY,DC=WARRIORS";   ### '1' means no, '0' means yes
 
-
-
-
-
-
-
-
+search-AdAccount -accountdisabled | select name
+    ###searches for disabled accounts
+                -accountexpired
+                -accountexpiring     
+###TEMPLATE
+get-aduser -filter * -Properties * | where {$_.<property> -like "*<paterntomatch>*" } | sele
+ct name,<other property>
