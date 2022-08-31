@@ -1,5 +1,5 @@
 RAISE YA HAND
-Linux validity:
+Linux REVIEW:
   where am i?
   who am i?
   what am i allowed to do? (sudo -l)
@@ -35,20 +35,54 @@ Linux validity:
   /etc/profile        ### interactive login shells, boots upon logins; if scripts in profile.d execute
     
   
-  
-  
-  
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+WINDOWS REVIEW:
+DO not search in drivers, dlls, or handles, strings in any of them
+
+map sysinternals
+    net use * \\live.sysinternals.com\tools
+    net use\get-psdrive
+
+powershell and sysinternals
+might need cli for sc.exe
+
+### search for ports:
+tcpview
+netstat -anob
+get-nettcpconnection
 
   
+### get process
+  get-process <process name> | select name, id, path
+  procexp.chm ( sysinternal tools)
+  taskmanager
+  
+  
+Artifacts:
+  NOTES
+  
+  
+run keys HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run     ### executes upon logons
+Task-scheduler
+auto-runs
+  
+  
+test-path $ALLUSERSALLHOSTS
+  Function PSProfile-Checker {
+
+$Properties = $profile | get-member -MemberType NoteProperty | Select -ExpandProperty Name
+
+$Properties | ForEach-Object { if ((test-path $profile.$_) -eq $true) { Write-Host "`$Profile.$_ Exists" } } 
+
+}
+
+PSProfile-Checker
+
+Remove-Item function:PSProfile-Checker
   
   
   
-  
-  
-  
-  
-  
-  
+MECHANISM: what caused what?
   
   
   
