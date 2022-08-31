@@ -69,8 +69,6 @@ get-item -path registry::Key_Users\*\<path>     # gets all the users info of tha
 
 
 
-
-
 Using 'reg': Not recommended
 reg /?                    #Displays help for all of the reg.exe commands
 reg query /?              #Displays help for the `reg query`
