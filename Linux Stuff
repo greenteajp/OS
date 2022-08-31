@@ -62,7 +62,7 @@ FILE SYSTEM: https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html
 /sbin (/usr/sbin)     ### stores system binaries
 /home     ### default directory for all users
 /usr      ### universal system resources; documentation, example files; catch for any files designed to be used on system
-/etc      ### everything configurable; system level config files; ssh, bashrc, gnome, cron, systemd
+/etc      ### everything configurable; system level config files; ssh, bashrc, gnome, cron, 
 /var      ### thing that are likely to change, like logs, mail
 /boot     ### what happens at boot process, contains .img/build files, grub
 /dev      ### special or device files; hardware, stderr/in/out. 
@@ -152,7 +152,7 @@ SYSV:
   parallel
   ini-likefiles
   system.conf
-  target units  (/etc/systemd/system)
+  target units  (/etc/systemd/system)		### for services
     0 poweroff.target
     1 rescue.target
     2 multi-user.target ### no network
@@ -216,11 +216,11 @@ lsat field is command to be executed
 b5cffa520ffea9573ca73ce8dad5cc1b
 BIOS system using MBR:
     Stage 1 : boot.img located in the first 440 bytes of the MBR loads…
-    Stage 1.5 : core.img located in the MBR between the bootstrap and first partition. It loads…​
+    Stage 1.5 : core.img located in the MBR between the bootstrap and first partition. It loads…
     Stage 2 : /boot/grub/i386-pc/normal.mod which loads the grub menu and then reads
         /boot/grub/grub.cfg Which displays a list of Linux kernels available to load on the system
 UEFI Systems using GPT:
-    Stage 1 : grubx64.efi Located on an EFI partition or in /boot loads…​
+    Stage 1 : grubx64.efi Located on an EFI partition or in /boot loads…
     Stage 2 : /boot/grub/x86_64-efi/normal.mod
         /boot/grub/grub.cfg Which displays a list of4279170e3936e5008b72a1e0c2e3d3ed Linux kernels available to load on the system
 
@@ -556,7 +556,7 @@ plugins:
 	registry analysis: hivedump ( dumps entire hive),hivelist,dumpregistry 
 Ex.
 .\volatility_2.6_win64_standalone.exe -h			### gets all the parameters, and plugins
-.\volatility_2.6_win64_standalone.exe -f ".\cridex.vmem" --profile=WinXPSP2x86 pstree
+.\volatility_2.6_win64_standalone.exe -f ".\cridex.vmem" --=WinXPSP2x86 pstree
 .\volatility_2.6_win64_standalone.exe -f ".\cridex.vmem" --profile=WinXPSP2x86 procdump -p 1640 -D .
 		makes a copy of the process and saves it in pwd
 get-filehash -Algorithm md5 .\executable.1640.exec
