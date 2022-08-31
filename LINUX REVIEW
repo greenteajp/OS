@@ -1,0 +1,62 @@
+Linux validity:
+  where am i?
+  who am i?
+  what am i allowed to do? (sudo -l)
+  what is going on?
+  what is that
+  what is happening
+  why 
+  whats in there
+  
+    netstat/ss
+    sudo ss -ntlp 
+    ps-elf ;/htop/htop        ### do not use lsof
+    
+    look at /etc/ or /lib/systemd/system for services with ppid of 1
+    htop tree or --forest
+    lines around --content
+    lines before -B
+    lines after -A
+    
+  "CRON" means cronjob
+  sudo contrab -l -u <user>
+       
+  /var/spool/cron/crontabs
+      These have user cronjobs
+      
+     ### locations for owned by root
+  /etc/crontab/
+  /etc/cron.d
+  /var/spool/cron/crontabs
+  
+  /etc/bash.bashrc    ### system-wide file for interactive non-loginshells
+  /etc/profile        ### interactive login shells, boots upon logins; if scripts in profile.d execute
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
