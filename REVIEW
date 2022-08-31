@@ -1,3 +1,4 @@
+RAISE YA HAND
 Linux validity:
   where am i?
   who am i?
@@ -29,14 +30,15 @@ Linux validity:
   /etc/cron.d
   /var/spool/cron/crontabs
   
+  ###clear out system-wide used files.
   /etc/bash.bashrc    ### system-wide file for interactive non-loginshells
   /etc/profile        ### interactive login shells, boots upon logins; if scripts in profile.d execute
+    
   
   
   
   
-  
-  
+
   
   
   
